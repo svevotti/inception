@@ -11,7 +11,6 @@ services:
   #   restart: always
     
   mariadb:
-    # image: mariadb:latest
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -28,7 +27,9 @@ services:
     #   - ./requirements/mariadb/tools:/var/lib/mysql
     restart: always
   wordpress:
-    image: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
     container_name: wp
     environment:
       WORDPRESS_DB_HOST: "db"

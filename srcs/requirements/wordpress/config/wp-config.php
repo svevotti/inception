@@ -1,16 +1,16 @@
 <?php
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'my_data');
+define('DB_NAME', getenv('WORDPRESS_DB_NAME'));
 
 /** MySQL database username */
-define('DB_USER', 'svevish');
+define('DB_USER', getenv('WORDPRESS_DB_USER'));
 
 /** MySQL database password */
-define('DB_PASSWORD', '3');
+define('DB_PASSWORD', getenv('WORDPRESS_DB_PASSWORD'));
 
 /** MySQL hostname (usually the name of your MariaDB container) */
-define('DB_HOST', 'db'); // Change this if your DB host is different
+define('DB_HOST', getenv('WORDPRESS_DB_HOST')); // Change this if your DB host is different
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
