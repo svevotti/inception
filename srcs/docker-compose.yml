@@ -27,22 +27,21 @@ services:
     # volumes:
     #   - ./requirements/mariadb/tools:/var/lib/mysql
     restart: always
-  # wordpress:
-  #   image: wordpress
-  #   container_name: wp
-  #   environment:
-  #     WORDPRESS_DB_HOST: db
-  #     WORDPRESS_DB_USER: sve
-  #     WORDPRESS_DB_PASSWORD: password1
-  #     WORDPRESS_DB_NAME: my_database
-  #   networks:
-  #     my_custom_network:
-  #       ipv4_address: 172.19.0.3
-  #   ports:
-  #     - 8080:80
-  #   volumes:
-  #     - ./requirements/wordpress/config/wp-config.php:/var/www/html/wp-config.php
-  #   restart: always
+  wordpress:
+    image: wordpress
+    container_name: wp
+    environment:
+      WORDPRESS_DB_HOST: "db"
+      WORDPRESS_DB_USER: "svevish"
+      WORDPRESS_DB_PASSWORD: "3"
+      WORDPRESS_DB_NAME: "my_data"
+    networks:
+      - my_network
+    ports:
+      - 8080:80
+    volumes:
+      - ./requirements/wordpress/config/wp-config.php:/var/www/html/wp-config.php
+    restart: always
   
 networks:
   my_network:
