@@ -1,44 +1,50 @@
 services:
-  nginx:
-    build:
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
-    image: nginx
-    volumes:
-      - ./requirements/nginx/config:/etc/nginx/conf.d
-    ports:
-      - "5050:5050"
-    restart: always
+  # nginx:
+  #   build:
+  #     context: ./requirements/nginx
+  #     dockerfile: Dockerfile
+  #   image: nginx
+  #   volumes:
+  #     - ./requirements/nginx/config:/etc/nginx/conf.d
+  #   ports:
+  #     - "5050:5050"
+  #   restart: always
     
   mariadb:
+    # image: mariadb:latest
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    container_name: some-maria
-    networks:
-      - my_network
-    ports:
-      - "3306:3306"
-    restart: always
-    volumes:
-      - ./requirements/mariadb/config:/docker-entrypoint-initdb.d
-  wordpress:
-    depends_on:
-      mariadb:
-        condition: service_started
-        required: true
-    image: wordpress:latest
     environment:
-      WORDPRESS_DB_HOST: some-maria:3306
-      WORDPRESS_DB_USER: sve
-      WORDPRESS_DB_PASSWORD: password1
-      WORDPRESS_DB_NAME: my_database
+      MYSQL_DATABASE: "my_data"
+      MYSQL_USER: "svevish"
+      MYSQL_PASSWORD: "3"
+    container_name: db
     networks:
       - my_network
     ports:
-      - "8080:80"
+      - 3306:3306
+    # volumes:
+    #   - ./requirements/mariadb/tools:/var/lib/mysql
     restart: always
+  # wordpress:
+  #   image: wordpress
+  #   container_name: wp
+  #   environment:
+  #     WORDPRESS_DB_HOST: db
+  #     WORDPRESS_DB_USER: sve
+  #     WORDPRESS_DB_PASSWORD: password1
+  #     WORDPRESS_DB_NAME: my_database
+  #   networks:
+  #     my_custom_network:
+  #       ipv4_address: 172.19.0.3
+  #   ports:
+  #     - 8080:80
+  #   volumes:
+  #     - ./requirements/wordpress/config/wp-config.php:/var/www/html/wp-config.php
+  #   restart: always
   
 networks:
   my_network:
-    name: test
+    external: true
+    name: net
