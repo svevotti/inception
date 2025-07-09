@@ -1,15 +1,18 @@
 services:
-  # nginx:
-  #   build:
-  #     context: ./requirements/nginx
-  #     dockerfile: Dockerfile
-  #   image: nginx
-  #   volumes:
-  #     - ./requirements/nginx/config:/etc/nginx/conf.d
-  #   ports:
-  #     - "5050:5050"
-  #   restart: always
-    
+  nginx:
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    container_name: ng
+    volumes:
+      - wp_files:/var/www/html/
+    ports:
+      - "8080:80"
+    networks:
+      - my_network
+    restart: always
+    depends_on:
+      - wordpress
   mariadb:
     build:
       context: ./requirements/mariadb
@@ -23,10 +26,11 @@ services:
       - my_network
     ports:
       - 3306:3306
-    # volumes:
-    #   - ./requirements/mariadb/tools:/var/lib/mysql
+    volumes:
+      - wordpress_db:/var/lib/mysql
     restart: always
   wordpress:
+    # image: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
@@ -39,11 +43,16 @@ services:
     networks:
       - my_network
     ports:
-      - 8080:80
+      - 9000:9000
     volumes:
-      - ./requirements/wordpress/config/wp-config.php:/var/www/html/wp-config.php
+      - wp_files:/var/www/html/
+    depends_on:
+      - mariadb
     restart: always
-  
+
+volumes:
+  wp_files:
+  wordpress_db:
 networks:
   my_network:
     external: true

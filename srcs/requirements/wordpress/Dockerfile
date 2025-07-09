@@ -1,11 +1,13 @@
 # syntax=docker/dockerfile:1
 FROM debian:bullseye
-RUN apt-get update && apt-get install -y wget apache2 php php-mysql
+RUN apt-get update && apt-get install -y wget php php-mysql php-fpm
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz
-RUN mv wordpress/* /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
+RUN mv wordpress/* /var/www/html
 RUN rm -rf wordpress latest.tar.gz
-RUN rm -rf /var/www/html/index.html
-EXPOSE 80
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+COPY /config/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+# COPY /config/wp-config.php /var/www/html/wp-config.php
+EXPOSE 9000
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+CMD ["/usr/sbin/php-fpm7.4", "-F"]

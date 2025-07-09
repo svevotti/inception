@@ -1,6 +1,6 @@
-# syntax=docker/dockerfile:1
 FROM debian:bullseye
 RUN apt-get update && apt-get install -y nginx
-WORKDIR /root/nginx
-EXPOSE 5050
+# COPY /config/default.conf /etc/nginx/sites-available/default
+# COPY index.html /var/www/html/index.html
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
