@@ -35,10 +35,10 @@ services:
       dockerfile: Dockerfile
     container_name: wp
     environment:
-      WORDPRESS_DB_HOST: "db"
+      WORDPRESS_DB_NAME: "my_data"
       WORDPRESS_DB_USER: "svevish"
       WORDPRESS_DB_PASSWORD: "3"
-      WORDPRESS_DB_NAME: "my_data"
+      WORDPRESS_DB_HOST: "db"
     networks:
       - my_network
     ports:
