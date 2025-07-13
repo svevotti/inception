@@ -17,10 +17,12 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+    secrets:
+      - db_password
     environment:
-      MYSQL_DATABASE: "my_data"
-      MYSQL_USER: "svevish"
-      MYSQL_PASSWORD: "3"
+      - MYSQL_DATABASE=${DATABASE}
+      - MYSQL_USER=${USER}
+      - MYSQL_PASSWORD=/run/secrets/db_password
     container_name: db
     networks:
       - my_network
@@ -34,11 +36,13 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     container_name: wp
+    secrets:
+      - db_password
     environment:
-      WORDPRESS_DB_NAME: "my_data"
-      WORDPRESS_DB_USER: "svevish"
-      WORDPRESS_DB_PASSWORD: "3"
-      WORDPRESS_DB_HOST: "db"
+      - WORDPRESS_DB_NAME=${DATABASE}
+      - WORDPRESS_DB_USER=${USER}
+      - WORDPRESS_DB_PASSWORD=/run/secrets/db_password
+      - WORDPRESS_DB_HOST=${HOST}
     networks:
       - my_network
     ports:
@@ -54,3 +58,6 @@ volumes:
   wordpress_db:
 networks:
   my_network:
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
