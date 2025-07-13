@@ -54,5 +54,3 @@ volumes:
   wordpress_db:
 networks:
   my_network:
-    external: true
-    name: net
