@@ -21,7 +21,7 @@ services:
       - db_password
     environment:
       - MYSQL_DATABASE=${DATABASE}
-      - MYSQL_USER=${USER}
+      - MYSQL_USER=${USER_DB}
       - MYSQL_PASSWORD=/run/secrets/db_password
     container_name: db
     networks:
@@ -40,7 +40,7 @@ services:
       - db_password
     environment:
       - WORDPRESS_DB_NAME=${DATABASE}
-      - WORDPRESS_DB_USER=${USER}
+      - WORDPRESS_DB_USER=${USER_DB}
       - WORDPRESS_DB_PASSWORD=/run/secrets/db_password
       - WORDPRESS_DB_HOST=${HOST}
     networks:
