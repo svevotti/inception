@@ -38,11 +38,17 @@ services:
     container_name: wp
     secrets:
       - db_password
+      - admin_password
     environment:
       - WORDPRESS_DB_NAME=${DATABASE}
       - WORDPRESS_DB_USER=${USER_DB}
       - WORDPRESS_DB_PASSWORD=/run/secrets/db_password
       - WORDPRESS_DB_HOST=${HOST}
+      - DOMAIN=${DOMAIN}
+      - PORT=${PORT}
+      - TITLE=${TITLE}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASSWORD=/run/secrets/admin_password
     networks:
       - my_network
     ports:
@@ -60,4 +66,6 @@ networks:
   my_network:
 secrets:
   db_password:
-    file: ../secrets/db_password.txt
+    file: ./secrets/db_password.txt
+  admin_password:
+    file: ./secrets/admin_password.txt
