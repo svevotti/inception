@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM debian:bullseye
-RUN apt-get update && apt-get install -y wget php php-mysql php-fpm
+RUN apt-get update && apt-get install -y wget php php-mysql php-fpm php-gd
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz
 RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html/
