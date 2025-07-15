@@ -1,5 +1,4 @@
 # Ignore secrets
-run/secrets/
-
+/srcs/secrets
 # Ignore environment variable files
-.env
+/srcs/.env
