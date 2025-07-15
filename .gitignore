@@ -1,0 +1,5 @@
+# Ignore secrets
+run/secrets/
+
+# Ignore environment variable files
+.env
