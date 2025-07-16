@@ -7,7 +7,7 @@ define('DB_NAME', getenv('WORDPRESS_DB_NAME'));
 define('DB_USER', getenv('WORDPRESS_DB_USER'));
 
 /** MySQL database password */
-define('DB_PASSWORD', getenv('WORDPRESS_DB_PASSWORD'));
+define('DB_PASSWORD', getenv('WORDPRESS_DB_PASSWORD_FILE'));
 
 /** MySQL hostname (usually the name of your MariaDB container) */
 define('DB_HOST', getenv('WORDPRESS_DB_HOST')); // Change this if your DB host is different
@@ -35,6 +35,9 @@ define('AUTH_SALT',        'put your unique phrase here');
 define('SECURE_AUTH_SALT', 'put your unique phrase here');
 define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
+// define('WP_AUTO_UPDATE_CORE', true);
+// define( 'AUTOMATIC_UPDATER_DISABLED', false );
+define('FS_METHOD', 'direct');
 
 /**#@-*/
 
