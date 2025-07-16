@@ -17,9 +17,19 @@
 ##
 
 # Default server configuration
+
+# /your_certificate.crt
+# /yourdomain.csr
+# /yourdomain.key
+# /yourdomain_public.key
 #
 server {
         listen 80;
+        # listen 443 ssl;
+        # ssl_certificate /etc/nginx/ssl/cert.pem;
+        # ssl_certificate_key /etc/nginx/ssl/key.pem;
+
+        # ssl_protocols TLSv1.3;
         #listen [::]:80 default_server;
 
         # SSL configuration
@@ -43,7 +53,7 @@ server {
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.php;
 
-        server_name localhost;
+        server_name smazzari.42.fr;
 
         location / {
                 # First attempt to serve request as file, then
