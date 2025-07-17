@@ -18,18 +18,19 @@
 
 # Default server configuration
 
-# /your_certificate.crt
-# /yourdomain.csr
-# /yourdomain.key
-# /yourdomain_public.key
-#
 server {
-        listen 80;
-        # listen 443 ssl;
-        # ssl_certificate /etc/nginx/ssl/cert.pem;
-        # ssl_certificate_key /etc/nginx/ssl/key.pem;
+    listen 80;
+    server_name smazzari.42.fr;
 
-        # ssl_protocols TLSv1.3;
+    return 301 https://$server_name$request_uri;
+}
+server {
+        # listen 80;
+        listen 443 ssl;
+        ssl_certificate /etc/nginx/ssl/smazzari.42.fr.crt;
+        ssl_certificate_key /etc/nginx/ssl/smazzari.42.fr.key;
+
+        ssl_protocols TLSv1.3;
         #listen [::]:80 default_server;
 
         # SSL configuration
