@@ -27,8 +27,8 @@ server {
 server {
         # listen 80;
         listen 443 ssl;
-        ssl_certificate /etc/nginx/ssl/smazzari.42.fr.crt;
-        ssl_certificate_key /etc/nginx/ssl/smazzari.42.fr.key;
+        ssl_certificate /run/secrets/my_cert;
+        ssl_certificate_key /run/secrets/my_key;
 
         ssl_protocols TLSv1.3;
         #listen [::]:80 default_server;

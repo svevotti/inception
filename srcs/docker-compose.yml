@@ -4,6 +4,9 @@ services:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     container_name: ng
+    secrets:
+      - my_cert
+      - my_key
     volumes:
       - wp_files:/var/www/html/
     ports:
@@ -70,3 +73,7 @@ secrets:
     file: ./secrets/db_password.txt
   admin_password:
     file: ./secrets/admin_password.txt
+  my_cert:
+    file: ./secrets/ssl/smazzari.42.fr.crt
+  my_key:
+    file: ./secrets/ssl/smazzari.42.fr.key
