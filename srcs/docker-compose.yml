@@ -8,7 +8,7 @@ services:
       - my_cert
       - my_key
     volumes:
-      - wp_files:/var/www/html/
+      - wp_files:/var/www/html
     ports:
       - "8080:80"
       - "443:443"
@@ -33,7 +33,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./data:/var/lib/mysql
+      - wordpress_db:/var/lib/mysql
     healthcheck:
       test: ["CMD", "/root/healthcheck.sh", "--connect", "--innodb_initialized"]
       start_period: 10s
@@ -64,7 +64,7 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - wp_files:/var/www/html/
+      - wp_files:/var/www/html
     depends_on:
       mariadb:
         condition: service_healthy
@@ -72,7 +72,17 @@ services:
 
 volumes:
   wp_files:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wp_files'
   wordpress_db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wordpress_db'
 networks:
   my_network:
 secrets:
