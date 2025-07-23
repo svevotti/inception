@@ -8,7 +8,7 @@ add:
 build:
 	docker compose -f ${DIR_COMPOSE} build
 up: add
-	docker compose -f ${DIR_COMPOSE} up -d
+	docker compose -f ${DIR_COMPOSE} up -d --build
 down: clean
 	docker compose -f ${DIR_COMPOSE} down -v
 rebuild:

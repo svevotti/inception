@@ -76,13 +76,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wp_files'
+      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/wp_files'
   wordpress_db:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wordpress_db'
+      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/wp_database'
 networks:
   my_network:
 secrets:
