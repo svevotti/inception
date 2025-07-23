@@ -33,7 +33,13 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - wordpress_db:/var/lib/mysql
+      - ./data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "/root/healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
     restart: always
   wordpress:
     build:
@@ -60,7 +66,8 @@ services:
     volumes:
       - wp_files:/var/www/html/
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     restart: always
 
 volumes:

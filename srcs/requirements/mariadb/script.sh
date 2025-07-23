@@ -1,15 +1,20 @@
 #!/bin/bash
 
-mkdir -p /docker-entrypoint-initdb.d
+#mouting volume overwrites onwership contianer's directory; setting back to initial ownership mysql
+# chown -R mysql:mysql /var/lib/mysql
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
+# rm -rf /var/lib/mysql/*
+DOCKER_INIT_DIR=/etc/mysql/docker-entrypoint-initdb.d
+INIT_SQL_PATH=$DOCKER_INIT_DIR/init.sql
 
-echo "CREATE DATABASE $MYSQL_DATABASE;" > /docker-entrypoint-initdb.d/init.sql
-echo "USE $MYSQL_DATABASE;" >> /docker-entrypoint-initdb.d/init.sql
-echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> /docker-entrypoint-initdb.d/init.sql
-echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" >> /docker-entrypoint-initdb.d/init.sql
-echo "FLUSH PRIVILEGES;" >> /docker-entrypoint-initdb.d/init.sql
+mkdir $DOCKER_INIT_DIR
+# chmod -R 777 $INIT_SQL_PATH
+echo "CREATE DATABASE $MYSQL_DATABASE;" > $INIT_SQL_PATH
+echo "USE $MYSQL_DATABASE;" >> $INIT_SQL_PATH
+echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $INIT_SQL_PATH
+echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" >> $INIT_SQL_PATH
+echo "FLUSH PRIVILEGES;" >> $INIT_SQL_PATH
 
-chmod +x /docker-entrypoint-initdb.d/init.sql
-
-cat /docker-entrypoint-initdb.d/init.sql
-
-mariadbd $@
+cat $INIT_SQL_PATH
+# mysql_install_db
+mariadbd --init-file=$DOCKER_INIT_DIR/init.sql $@
