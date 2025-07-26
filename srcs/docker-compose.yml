@@ -1,9 +1,11 @@
+name: smazzari-inception
 services:
-  nginx:
+  nginx-reverse-proxy:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     container_name: ng
+    image:  nginx-reverse-proxy:1.0
     secrets:
       - my_cert
       - my_key
@@ -16,8 +18,8 @@ services:
       - my_network
     restart: always
     depends_on:
-      - wordpress
-  mariadb:
+      - wordpress-website
+  mariadb-database:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -28,6 +30,7 @@ services:
       - MYSQL_USER=${USER_DB}
       - MYSQL_PASSWORD=/run/secrets/db_password
     container_name: db
+    image: mariadb-database:1.0
     networks:
       - my_network
     ports:
@@ -41,11 +44,13 @@ services:
       timeout: 5s
       retries: 3
     restart: always
-  wordpress:
+
+  wordpress-website:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     container_name: wp
+    image: wordpress-website:1.0
     secrets:
       - db_password
       - admin_password
@@ -66,7 +71,7 @@ services:
     volumes:
       - wp_files:/var/www/html
     depends_on:
-      mariadb:
+      mariadb-database:
         condition: service_healthy
     restart: always
 
