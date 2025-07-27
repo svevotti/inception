@@ -14,6 +14,7 @@ RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
 RUN mkdir -p /var/log && chown -R www-data:www-data /var/log
 COPY script.sh /usr/local/bin/script.sh
 RUN chmod +x /usr/local/bin/script.sh && chown www-data:www-data /usr/local/bin/script.sh
+# RUN mkdir -p /var/www/.wp-cli/cache && chown -R www-data:www-data /var/www/.wp-cli && chmod -R 755 /var/www/.wp-cli
 EXPOSE 9000
 USER www-data
 ENTRYPOINT ["/usr/local/bin/script.sh"]

@@ -27,6 +27,7 @@ skip-external-locking
 
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
+# Only change to be able to connect from anywhere
 # bind-address            = 127.0.0.1
 
 #

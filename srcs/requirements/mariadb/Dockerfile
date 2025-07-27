@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1
 FROM debian:bullseye
-# RUN groupadd -g 74 mysql && useradd -g mysql -c "MySQL Server,,," -u 74 mysql -d/nonexistent -s/bin/false
 RUN apt-get update && apt-get install -y mariadb-server
 RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
 COPY script.sh .
