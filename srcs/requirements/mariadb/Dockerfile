@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM debian:bullseye
+FROM debian:bookworm
 RUN apt-get update && apt-get install -y mariadb-server
 RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
 COPY script.sh .

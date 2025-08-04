@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 RUN apt-get update && apt-get install -y nginx openssl curl
 RUN mkdir -p /var/lib/nginx/body && chown -R www-data:www-data /var/lib/nginx
 # COPY config/default.config /etc/nginx/conf.d/default.config
