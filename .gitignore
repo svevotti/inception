@@ -1,7 +1,6 @@
 # Ignore secrets
-/srcs/secrets
+secrets
 # Ignore environment variable files
-/srcs/.env
 
 # Ignore temporary /home directory
 /home 
