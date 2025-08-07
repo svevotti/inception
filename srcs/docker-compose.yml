@@ -90,10 +90,10 @@ networks:
   my_network:
 secrets:
   db_password:
-    file: ./secrets/db_password.txt
+    file: ../secrets/db_password.txt
   admin_password:
-    file: ./secrets/admin_password.txt
+    file: ../secrets/admin_password.txt
   my_cert:
-    file: ./secrets/ssl/smazzari.42.fr.crt
+    file: ../secrets/ssl/sve.42.fr.crt
   my_key:
-    file: ./secrets/ssl/smazzari.42.fr.key
+    file: ../secrets/ssl/sve.42.fr.key
