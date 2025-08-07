@@ -8,7 +8,7 @@ services:
       - my_cert
       - my_key
     volumes:
-      - wp_files:/var/www/html
+    - wp_files:/var/www/html
     ports:
       - "8080:80"
       - "443:443"
@@ -72,17 +72,20 @@ services:
 
 volumes:
   wp_files:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wp_files'
   wordpress_db:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wordpress_db'
+# volumes:
+#   wp_files:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wp_files'
+#   wordpress_db:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wordpress_db'
 networks:
   my_network:
 secrets:
