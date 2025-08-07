@@ -1,7 +1,7 @@
 DIR_COMPOSE=./srcs/docker-compose.yml
 VOLUME__WP_DB=wp_database
 VOLUME_WP_FILES=wp_files
-PATH_HOST=./home/smazzari42
+PATH_HOST=~/data
 add:
 	mkdir -p ${PATH_HOST}/$(VOLUME__WP_DB)
 	mkdir -p ${PATH_HOST}/$(VOLUME_WP_FILES)

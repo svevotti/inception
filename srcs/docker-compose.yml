@@ -70,22 +70,22 @@ services:
         condition: service_healthy
     restart: always
 
-volumes:
-  wp_files:
-  wordpress_db:
 # volumes:
 #   wp_files:
-#     driver: local
-#     driver_opts:
-#       type: 'none'
-#       o: 'bind'
-#       device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wp_files'
 #   wordpress_db:
-#     driver: local
-#     driver_opts:
-#       type: 'none'
-#       o: 'bind'
-#       device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/data/wordpress_db'
+volumes:
+  wp_files:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '~/data/wp_files'
+  wordpress_db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '~/data/wp_database'
 networks:
   my_network:
 secrets:
