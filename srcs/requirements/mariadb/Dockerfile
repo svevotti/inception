@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM debian:bullseye
+FROM debian:bookworm
 # RUN groupadd -g 74 mysql && useradd -g mysql -c "MySQL Server,,," -u 74 mysql -d/nonexistent -s/bin/false
 RUN apt-get update && apt-get install -y mariadb-server
 # RUN mkdir -p /etc/mysql/docker-entrypoint-initdb.d

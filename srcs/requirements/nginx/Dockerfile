@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 RUN apt-get update && apt-get install -y nginx openssl
 COPY config/default /etc/nginx/sites-available/default
 # COPY index.html /var/www/html/index.html

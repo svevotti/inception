@@ -15,4 +15,4 @@ echo "create admin"
 wp user create kam kam@example.com --role=subscriber --first_name=Kam --last_name=Aliev --user_pass=2 --path=/var/www/html --allow-root
 echo "create user"
 # Start php
-/usr/sbin/php-fpm7.4 -F
+/usr/sbin/php-fpm8.2 -F
