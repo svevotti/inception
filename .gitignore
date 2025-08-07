@@ -1,6 +1,2 @@
 # Ignore secrets
 secrets
-# Ignore environment variable files
-
-# Ignore temporary /home directory
-/home 
