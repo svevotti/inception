@@ -36,6 +36,6 @@ logs:
 clean:
 	rm -rf ${PATH_HOST}/$(VOLUME__WP_DB)
 	rm -rf ${PATH_HOST}/$(VOLUME_WP_FILES)
-fclen:
-	docker images prune -a -f
+fclean:
+	docker image prune -a -f
 	docker volume prune -a -f
