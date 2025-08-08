@@ -1,6 +1,15 @@
+# FROM debian:bookworm
+# RUN apt-get update && apt-get install -y nginx openssl
+# COPY config/default /etc/nginx/sites-available/default
+# EXPOSE 80
+# EXPOSE 443
+# CMD ["nginx", "-g", "daemon off;"]
+# syntax=docker/dockerfile:1
 FROM debian:bookworm
-RUN apt-get update && apt-get install -y nginx openssl
+RUN apt-get update && apt-get install -y nginx openssl curl
+RUN mkdir -p /var/lib/nginx/body && chown -R www-data:www-data /var/lib/nginx
 COPY config/default /etc/nginx/sites-available/default
-EXPOSE 80
+COPY config/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 443
+USER www-data
 CMD ["nginx", "-g", "daemon off;"]
