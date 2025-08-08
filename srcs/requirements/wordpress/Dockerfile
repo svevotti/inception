@@ -10,7 +10,6 @@ COPY config/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY config/wp-config.php /var/www/html/wp-config.php
 EXPOSE 9000
 RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
-COPY script.sh /usr/local/bin/script.sh
+COPY tools/script.sh /usr/local/bin/script.sh
 RUN chmod +x /usr/local/bin/script.sh
 ENTRYPOINT ["/usr/local/bin/script.sh"]
-# CMD ["/usr/sbin/php-fpm7.4", "-F"]
