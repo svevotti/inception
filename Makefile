@@ -1,31 +1,30 @@
 DIR_COMPOSE=./srcs/docker-compose.yml
-VOLUME__WP_DB=wp_database
-VOLUME_WP_FILES=wp_files
-#path host to change in /home/smazzari/data
-PATH_HOST=./home/smazzari42
-add:
-	mkdir -p ${PATH_HOST}/$(VOLUME__WP_DB)
-	mkdir -p ${PATH_HOST}/$(VOLUME_WP_FILES)
+
+all: help
+
+help:
+	@echo "Options available"
+	@echo "build: creates images"
+	@echo "up: starts the containers in background"
+	@echo "down: stops and deletes containers"
+	@echo "rebuild: builds from scratch images"
+	@echo "logs + service: shows the log of the api - if adding service='...' can get logs for specific service"
+	@echo "fclean: deletes all images and volumes not used by any container"
+
 build:
 	docker compose -f ${DIR_COMPOSE} build
-up: add
+up:
 	docker compose -f ${DIR_COMPOSE} up -d
-build-up: add
-	docker compose -f ${DIR_COMPOSE} up -d --build
-down: clean
-	docker compose -f ${DIR_COMPOSE} down -v
+down:
+	docker compose -f ${DIR_COMPOSE} down
 rebuild:
 	docker compose -f ${DIR_COMPOSE} build --no-cache
 logs:
-	docker compose -f ${DIR_COMPOSE} logs
-ps:
-	docker compose -f ${DIR_COMPOSE} ps
-start:
-	docker compose -f ${DIR_COMPOSE} start
-stop:
-	docker compose -f ${DIR_COMPOSE} stop
-restart:
-	docker compose -f ${DIR_COMPOSE} restart
-clean:
-	rm -rf ${PATH_HOST}/$(VOLUME__WP_DB)
-	rm -rf ${PATH_HOST}/$(VOLUME_WP_FILES)
+	@if [ -z "$(service)" ]; then \
+		docker compose -f ${DIR_COMPOSE} logs; \
+	else \
+		docker compose -f ${DIR_COMPOSE} logs $(service); \
+	fi
+fclean:
+	docker image prune -a -f
+	docker volume prune -a -f
