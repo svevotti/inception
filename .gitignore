@@ -1,5 +1,5 @@
 # Ignore secrets
-/srcs/secrets
+/secrets
 # Ignore environment variable files
 /srcs/.env
 
