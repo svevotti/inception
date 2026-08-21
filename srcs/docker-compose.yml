@@ -26,7 +26,7 @@ services:
     environment:
       - MYSQL_DATABASE=${DATABASE}
       - MYSQL_USER=${USER_DB}
-      - MYSQL_PASSWORD=/run/secrets/db_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
     container_name: db
     networks:
       - my_network

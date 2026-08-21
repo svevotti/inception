@@ -24,7 +24,7 @@ build:
 up: add
 	docker compose -f ${DIR_COMPOSE} up -d
 down: clean
-	docker compose -f ${DIR_COMPOSE} down
+	docker compose -f ${DIR_COMPOSE} down -v
 rebuild:
 	docker compose -f ${DIR_COMPOSE} build --no-cache
 logs:

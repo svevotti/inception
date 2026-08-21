@@ -1,2 +1,5 @@
 # Ignore secrets
-secrets
+/secrets
+
+#Ignore .env
+./src/.env
