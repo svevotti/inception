@@ -1,5 +1,7 @@
 # Inception - Docker Infrastructure Project
 
+> A 42 Berlin core curriculum project on Docker orchestration and infrastructure automation.
+
 ## Table of Contents
 - [Overview](#overview)
 - [Installation](#installation)
