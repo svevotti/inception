@@ -1,25 +1,24 @@
-name: smazzari-inception
 services:
-  nginx-reverse-proxy:
+  nginx:
+    image: my_nginx:1.0
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
     container_name: ng
-    image:  nginx-reverse-proxy:1.0
     secrets:
       - my_cert
       - my_key
     volumes:
-      - wp_files:/var/www/html
+    - wp_files:/var/www/html
     ports:
-      # - "8080:80"
       - "443:443"
     networks:
       - my_network
     restart: always
     depends_on:
-      - wordpress-website
-  mariadb-database:
+      - wordpress
+  mariadb:
+    image: my_mariadb:1.0
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
@@ -28,9 +27,8 @@ services:
     environment:
       - MYSQL_DATABASE=${DATABASE}
       - MYSQL_USER=${USER_DB}
-      - MYSQL_PASSWORD=/run/secrets/db_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
     container_name: db
-    image: mariadb-database:1.0
     networks:
       - my_network
     ports:
@@ -44,16 +42,17 @@ services:
       timeout: 5s
       retries: 3
     restart: always
-
-  wordpress-website:
+  
+  wordpress:
+    image: my_wordpress:1.0
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
     container_name: wp
-    image: wordpress-website:1.0
     secrets:
       - db_password
       - admin_password
+      - user_password
     environment:
       - WORDPRESS_DB_NAME=${DATABASE}
       - WORDPRESS_DB_USER=${USER_DB}
@@ -64,6 +63,8 @@ services:
       - TITLE=${TITLE}
       - ADMIN_USER=${ADMIN_USER}
       - ADMIN_PASSWORD_FILE=/run/secrets/admin_password
+      - USER_ROLE=${USER_ROLE}
+      - USER_PASSWORD_FILE=/run/secrets/user_password
     networks:
       - my_network
     ports:
@@ -71,33 +72,23 @@ services:
     volumes:
       - wp_files:/var/www/html
     depends_on:
-      mariadb-database:
+      mariadb:
         condition: service_healthy
-    # extra_hosts:
-    #   - "smazzari.42.fr:172.18.0.1"
     restart: always
 
 volumes:
   wp_files:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/wp_files'
   wordpress_db:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/Users/sveva/repos/Circle5/inception/home/smazzari42/wp_database'
 networks:
   my_network:
 secrets:
   db_password:
-    file: ./secrets/db_password.txt
+    file: ../secrets/db_password.txt
   admin_password:
-    file: ./secrets/admin_password.txt
+    file: ../secrets/admin_password.txt
+  user_password:
+    file: ../secrets/user_password.txt
   my_cert:
-    file: ./secrets/ssl/smazzari.42.fr.crt
+    file: ../secrets/ssl/smazzari.42.fr.crt
   my_key:
-    file: ./secrets/ssl/smazzari.42.fr.key
+    file: ../secrets/ssl/smazzari.42.fr.key

@@ -6,9 +6,9 @@ define('DB_NAME', getenv('WORDPRESS_DB_NAME'));
 /** MySQL database username */
 define('DB_USER', getenv('WORDPRESS_DB_USER'));
 
-/** MySQL database password magically it reads correctly automatically from path*/
+/** MySQL database password */
 $env_variables =  getenv('WORDPRESS_DB_PASSWORD_FILE'); ///run/secrets/me
-$password = shell_exec("cat $env_variables"); //password?
+$password = trim(file_get_contents($env_variables));
 define('DB_PASSWORD', $password);
 
 /** MySQL hostname (usually the name of your MariaDB container) */
@@ -37,8 +37,8 @@ define('AUTH_SALT',        'put your unique phrase here');
 define('SECURE_AUTH_SALT', 'put your unique phrase here');
 define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
-define( 'WP_HOME', 'https://smazzari.42.fr' );
-define( 'WP_SITEURL', 'https://smazzari.42.fr' );
+define( 'WP_HOME', 'https://'. getenv('DOMAIN') );
+define( 'WP_SITEURL', 'https://'. getenv('DOMAIN') );
 // define('WP_AUTO_UPDATE_CORE', true);
 // define( 'AUTOMATIC_UPDATER_DISABLED', false );
 define('FS_METHOD', 'direct');
