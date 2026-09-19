@@ -27,7 +27,7 @@ services:
     environment:
       - MYSQL_DATABASE=${DATABASE}
       - MYSQL_USER=${USER_DB}
-      - MYSQL_PASSWORD=/run/secrets/db_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/db_password
     container_name: db
     networks:
       - my_network
@@ -79,19 +79,6 @@ services:
 volumes:
   wp_files:
   wordpress_db:
-#volumes:
-#wp_files:
-#driver: local
-#driver_opts:
-# type: 'none'
-# o: 'bind'
-# device: '~/data/wp_files'
-# wordpress_db:
-# driver: local
-#driver_opts:
-#type: 'none'
-#o: 'bind'
-#device: '~/data/wp_database'
 networks:
   my_network:
 secrets:
@@ -102,6 +89,6 @@ secrets:
   user_password:
     file: ../secrets/user_password.txt
   my_cert:
-    file: ../secrets/ssl/sve.42.fr.crt
+    file: ../secrets/ssl/smazzari.42.fr.crt
   my_key:
-    file: ../secrets/ssl/sve.42.fr.key
+    file: ../secrets/ssl/smazzari.42.fr.key
