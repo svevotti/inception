@@ -1,7 +1,15 @@
 DIR_COMPOSE=./srcs/docker-compose.yml
 
-all: help
+all: build up
 
+up:
+	docker compose -f ${DIR_COMPOSE} up -d
+build:
+	docker compose -f ${DIR_COMPOSE} build
+down:
+	docker compose -f ${DIR_COMPOSE} down
+rebuild:
+	docker compose -f ${DIR_COMPOSE} build --no-cache
 help:
 	@echo "Options available"
 	@echo "build: creates images"
@@ -10,15 +18,6 @@ help:
 	@echo "rebuild: builds from scratch images"
 	@echo "logs + service: shows the log of the api - if adding service='...' can get logs for specific service"
 	@echo "fclean: deletes all images and volumes not used by any container"
-
-build:
-	docker compose -f ${DIR_COMPOSE} build
-up:
-	docker compose -f ${DIR_COMPOSE} up -d
-down:
-	docker compose -f ${DIR_COMPOSE} down
-rebuild:
-	docker compose -f ${DIR_COMPOSE} build --no-cache
 logs:
 	@if [ -z "$(service)" ]; then \
 		docker compose -f ${DIR_COMPOSE} logs; \
